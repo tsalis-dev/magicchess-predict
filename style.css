@@ -1,0 +1,188 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+/* CSS Variables untuk tema */
+:root {
+    --bg-dark: #1a1c20;
+    --bg-light: #25282e;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --accent-color: #00aaff;
+    --accent-hover: #0088cc;
+    --success-color: #27ae60;
+    --border-color: #3a3f47;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    padding: 2rem;
+}
+
+.main-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    grid-template-areas: 
+        "header header"
+        "main   sidebar";
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    grid-area: header;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    color: var(--accent-color);
+    font-weight: 700;
+}
+
+header p {
+    color: var(--text-secondary);
+}
+
+main {
+    grid-area: main;
+}
+
+aside {
+    grid-area: sidebar;
+}
+
+.card, #status-panel {
+    background-color: var(--bg-light);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.card.hidden {
+    display: none;
+}
+
+label {
+    display: block;
+    margin: 1rem 0 0.5rem 0;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+input, select {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(0, 170, 255, 0.2);
+}
+
+button {
+    width: 100%;
+    padding: 0.8rem;
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--accent-color);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1em;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: var(--accent-hover);
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.reset-button {
+    background-color: #e74c3c;
+}
+
+.reset-button:hover {
+    background-color: #c0392b;
+}
+
+#status-panel h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.status-item:last-of-type {
+    border-bottom: none;
+}
+
+.status-label {
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.status-value {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: right;
+}
+
+.prediction-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: var(--bg-dark);
+    border-left: 5px solid var(--success-color);
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 0 8px 8px 0;
+}
+
+.info-text {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    margin-top: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .main-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "header"
+            "sidebar"
+            "main";
+    }
+    body {
+        padding: 1rem;
+    }
+}

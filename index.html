@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Chess Opponent Predictor</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-layout">
+        <header>
+            <h1>Magic Chess Predictor</h1>
+            <p>Alat bantu strategis berdasarkan teori "Pemain Tumpuan"</p>
+        </header>
+
+        <main id="main-content">
+            <div class="card" id="setup-container">
+                <h2>Langkah 1: Setup Permainan</h2>
+                <label for="my-name">Masukkan Nama Anda:</label>
+                <input type="text" id="my-name" placeholder="Contoh: salis123">
+                
+                <label for="other-players">Masukkan 7 Nama Pemain Lain (pisahkan dengan koma):</label>
+                <input type="text" id="other-players" placeholder="C1, C2, C3, C4, C5, C6, C7">
+                
+                <button onclick="setupGame()">Mulai Permainan</button>
+            </div>
+
+            <div class="card hidden" id="match-1-container">
+                <h2>Match 1: Tentukan Tumpuan 1</h2>
+                <label for="match1-opponent">Siapa lawan Anda di Match 1?</label>
+                <select id="match1-opponent"></select>
+                <button onclick="recordMatch1()">Catat & Lanjut</button>
+            </div>
+            
+            <div class="card hidden" id="match-2-container">
+                <h2>Match 2: Tentukan Tumpuan 2</h2>
+                <label for="match2-opponent">Siapa lawan Anda di Match 2?</label>
+                <select id="match2-opponent"></select>
+                <label for="match2-t1-opponent">Siapa lawan <strong>Tumpuan 1 (<span id="t1-name-2"></span>)</strong> di Match 2?</label>
+                <select id="match2-t1-opponent"></select>
+                <button onclick="recordMatch2()">Catat & Prediksi Match 3</button>
+            </div>
+            
+            <div class="card hidden" id="prediction-3-card">
+                 <h2>Prediksi Lawan Match 3</h2>
+                 <div class="prediction-result" id="prediction-3-text"></div>
+                 <button onclick="showMatch4Input()">Lanjut ke Input Match 4</button>
+            </div>
+
+            <div class="card hidden" id="match-4-container">
+                <h2>Match 4: Data Tambahan</h2>
+                <label for="match4-opponent">Siapa lawan Anda di Match 4?</label>
+                <select id="match4-opponent"></select>
+                <label for="match4-t1-opponent">Siapa lawan <strong>Tumpuan 1 (<span id="t1-name-4"></span>)</strong> di Match 4?</label>
+                <select id="match4-t1-opponent"></select>
+                <button onclick="recordMatch4()">Catat & Prediksi Match 5</button>
+            </div>
+
+            <div class="card hidden" id="prediction-5-card">
+                 <h2>Prediksi Lawan Match 5</h2>
+                 <div class="prediction-result" id="prediction-5-text"></div>
+                 <button onclick="showMatch5Input()">Lanjut ke Input Match 5</button>
+            </div>
+
+            <div class="card hidden" id="match-5-container">
+                <h2>Match 5: Data Tambahan</h2>
+                <label for="match5-t2-opponent">Siapa lawan <strong>Tumpuan 2 (<span id="t2-name-5"></span>)</strong> di Match 5?</label>
+                <select id="match5-t2-opponent"></select>
+                <button onclick="recordMatch5()">Catat & Prediksi Match 6</button>
+            </div>
+
+            <div class="card hidden" id="prediction-6-card">
+                 <h2>Prediksi Lawan Match 6</h2>
+                 <div class="prediction-result" id="prediction-6-text"></div>
+                 <button onclick="showMatch6Input()">Lanjut ke Input Match 6</button>
+            </div>
+
+            <div class="card hidden" id="match-6-container">
+                <h2>Match 6: Data Tambahan</h2>
+                <label for="match6-t1-opponent">Siapa lawan <strong>Tumpuan 1 (<span id="t1-name-6"></span>)</strong> di Match 6?</label>
+                <select id="match6-t1-opponent"></select>
+                <button onclick="recordMatch6()">Catat & Prediksi Match 7</button>
+            </div>
+            
+            <div class="card hidden" id="prediction-7-card">
+                 <h2>Prediksi Lawan Match 7</h2>
+                 <div class="prediction-result" id="prediction-7-text"></div>
+                 <p class="info-text">Semua prediksi selesai.</p>
+                 <button onclick="showSummary()">Lihat Rangkuman Pertandingan</button>
+            </div>
+
+            <div class="card hidden" id="summary-card">
+                <h2>Rangkuman Pertandingan</h2>
+                <ol id="match-history-list"></ol>
+                <button onclick="resetGame()" class="reset-button">Mulai Game Baru</button>
+            </div>
+        </main>
+
+        <aside id="status-panel">
+            <h2>Panel Status</h2>
+            <div class="status-item">
+                <span class="status-label">Nama Anda</span>
+                <span class="status-value" id="status-user">Belum diatur</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Tumpuan 1</span>
+                <span class="status-value" id="status-t1">-</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Tumpuan 2</span>
+                <span class="status-value" id="status-t2">-</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Fase Saat Ini</span>
+                <span class="status-value" id="status-phase">Setup</span>
+            </div>
+            <button onclick="resetGame()" class="reset-button">Reset Game</button>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
